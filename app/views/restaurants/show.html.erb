@@ -24,7 +24,7 @@
           Be the first to leave a review for <%= @restaurant.name %>
         </div>
         <% else %>
-          <% @restaurant.reviews.each do |review| %>
+          <% @restaurant.reviews.reverse.each do |review| %>
             <p class="p-3 mb-1 bg-white" ><%= review.content %></p>
           <% end %>
         <% end %>
