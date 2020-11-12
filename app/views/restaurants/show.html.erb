@@ -14,16 +14,18 @@
         <%= pluralize @restaurant.reviews.size, "review" %>
       </h2>
       <%= simple_form_for([ @restaurant, @review ]) do |f| %>
-        <%= f.input :content, as: :text %>
+        <%= f.input :content, as: :text, label: false %>
         <%= f.submit "Leave a review", class:"btn btn-primary"%>
       <% end %>
 
-      <div id="reviews" class="text-secondary mt-2">
+      <div id="reviews" class="my-5">
         <% if @restaurant.reviews.blank? %>
+        <div class="text-secondary">
           Be the first to leave a review for <%= @restaurant.name %>
+        </div>
         <% else %>
           <% @restaurant.reviews.each do |review| %>
-            <p><%= review.content %></p>
+            <p class="p-3 mb-1 bg-white" ><%= review.content %></p>
           <% end %>
         <% end %>
       </div>
