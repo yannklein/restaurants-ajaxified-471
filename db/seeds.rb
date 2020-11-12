@@ -1,3 +1,6 @@
+Review.destroy_all
+Restaurant.destroy_all
+
 puts 'Creating restaurants...'
 Restaurant.create!({
   name: "Le Dindon en Laisse",
