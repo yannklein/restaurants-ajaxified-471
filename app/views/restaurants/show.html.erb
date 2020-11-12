@@ -1,19 +1,32 @@
-<h1><%= @restaurant.name %> <small><%= @restaurant.address %></small></h1>
-<h2>
-  <%= pluralize @restaurant.reviews.size, "review" %>
-</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <div class="d-flex my-5">
+        <%= image_tag "https://www.sippitysup.com/wp-content/uploads/drupal-images/salmontroisgros1.jpg", width: "320", class: "rounded-circle mr-5 flex-grow shadow object-fit-cover", alt: "restaurant" %>
+        <div class="d-flex flex-column justify-content-center" >
+          <h1><%= @restaurant.name %></h1>
+          <h4><%= @restaurant.address %></h4>
+        </div>
+      </div>
+      <div class="border-bottom my-3"></div>
 
-<%= simple_form_for([ @restaurant, @review ]) do |f| %>
-  <%= f.input :content, as: :text %>
-  <%= f.button :submit %>
-<% end %>
+      <h2>
+        <%= pluralize @restaurant.reviews.size, "review" %>
+      </h2>
+      <%= simple_form_for([ @restaurant, @review ]) do |f| %>
+        <%= f.input :content, as: :text %>
+        <%= f.submit "Leave a review", class:"btn btn-primary"%>
+      <% end %>
 
-<div id="reviews">
-  <% if @restaurant.reviews.blank? %>
-    Be the first to leave a review for <%= @restaurant.name %>
-  <% else %>
-    <% @restaurant.reviews.each do |review| %>
-      <p><%= review.content %></p>
-    <% end %>
-  <% end %>
+      <div id="reviews" class="text-secondary mt-2">
+        <% if @restaurant.reviews.blank? %>
+          Be the first to leave a review for <%= @restaurant.name %>
+        <% else %>
+          <% @restaurant.reviews.each do |review| %>
+            <p><%= review.content %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
