@@ -7,7 +7,7 @@
         <div class="p-3 bg-white">
           <h2>🍽 <%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
           <%= link_to "Edit", "#", class: "btn btn-primary" %>
-          <%= link_to "Delete", restaurant, method: :delete, class: "btn btn-danger" %>
+          <%= link_to "Delete", restaurant, method: :delete, class: "btn btn-danger", remote: true %>
         </div>
         <% end %>
       </div>

@@ -11,25 +11,43 @@
       </div>
       <div class="border-top my-3"></div>
 
-      <h2>
-        <%= pluralize @restaurant.reviews.size, "review" %>
-      </h2>
-      <%= simple_form_for([ @restaurant, @review ]) do |f| %>
-        <%= f.input :content, as: :text, label: false %>
-        <%= f.submit "Leave a review", class:"btn btn-primary"%>
-      <% end %>
-
-
-      <div id="reviews" class="my-5">
-        <% if @restaurant.reviews.blank? %>
-        <div class="text-secondary">
-          Be the first to leave a review for <%= @restaurant.name %>
-        </div>
-        <% else %>
-          <% @restaurant.reviews.order(created_at: :desc).each do |review| %>
-            <p class="p-3 mb-1 bg-white" ><%= review.content %></p>
+      <div data-controller="reviews-list">
+        <h2 data-target="reviews-list.count">
+          <%= pluralize @restaurant.reviews.size, "review" %>
+        </h2>
+        <button data-action="click->reviews-list#openModal" class="btn btn-primary">Leave a review</button>
+        <div data-target="reviews-list.form" >
+          <%= simple_form_for([ @restaurant, @review ], remote: true) do |f| %>
+            <%= f.input :content,
+              as: :text,
+              label: false,
+              input_html: {
+                data: {
+                  target: "reviews-list.content"
+                }
+              }
+            %>
+            <%= f.submit "I'm done!",
+              class:"btn btn-primary",
+              data: {
+                  action: "click->reviews-list#submitReview"
+                }
+            %>
           <% end %>
-        <% end %>
+        </div>
+
+
+        <div data-target="reviews-list.reviews" id="reviews" class="my-5">
+          <% if @restaurant.reviews.blank? %>
+          <div class="text-secondary">
+            Be the first to leave a review for <%= @restaurant.name %>
+          </div>
+          <% else %>
+            <% @restaurant.reviews.order(created_at: :desc).each do |review| %>
+              <p class="p-3 mb-1 bg-white" ><%= review.content %></p>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
